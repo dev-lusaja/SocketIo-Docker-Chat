@@ -9,11 +9,16 @@
       <div id="container-messages">
         <ul id="messages"></ul>
       </div>
+
+<!--       <div id="container-estado">
+          <span id="estado"></span>
+      </div> -->
+
       <div id="container-form">
         <form action="">
           <div id="helper"></div><!-- 
-           --><input id="m" autocomplete="off"/>
-          <button>Send</button>
+           --><input id="mensaje" autocomplete="off" placeholder="Escribre aquí" />
+          <button>Enviar</button>
         </form>
       </div>
     </div>
@@ -22,13 +27,20 @@
     <script>
       var socket = io();
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
+        socket.emit('chat message', $('#mensaje').val());
+        $('#mensaje').val('');
         return false;
       });
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').text(msg));
         $("#container-messages").animate({scrollTop: $('ul li:last').offset().top+30});
+      });
+
+      $('#mensaje').keypress(function() {
+        socket.emit('escribiendo', "Un usuario esta escribiendo");
+      });
+      socket.on('escribiendo', function(msg){
+        $("#estado").text(msg);
       });
     </script>
   </body>

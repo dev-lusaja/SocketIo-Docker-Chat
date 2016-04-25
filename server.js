@@ -17,6 +17,10 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
+
+  socket.on('escribiendo', function(msg){
+    io.emit('escribiendo', msg);
+  });
 });
 
 http.listen(port, function(){
