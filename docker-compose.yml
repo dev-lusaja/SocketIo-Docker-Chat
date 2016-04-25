@@ -3,4 +3,5 @@ app:
   ports:
     - "3000:3000"
   volumes:
-    - "./templates:/srv/chatIo/templates"
+    - ./public/assets/css:/srv/chatIo/public/assets/css
+    - ./public/templates:/srv/chatIo/public/templates
